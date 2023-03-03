@@ -6,6 +6,7 @@ const userSchema = new Schema(
     username: {
         type: String,
         unique: true,
+        trim: true,
         required: true
     },
     email: {
@@ -19,8 +20,18 @@ const userSchema = new Schema(
             message: 'Email validation failed'
           }
     },
-    thoughts: Array,
-    friends: Array,
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'thought',
+      }
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+      }
+    ]
   },
   {
     // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.

@@ -1,5 +1,34 @@
 const { Schema, model } = require('mongoose');
-const Reaction = require('./Reaction');
+// const reactionSchema = require('./Reaction');
+// const Reaction = require('./Reaction');
+
+const reactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      maxlength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
+);
 
 // Schema to create Post model
 const thoughtSchema = new Schema(
@@ -18,7 +47,7 @@ const thoughtSchema = new Schema(
       type: String,
       required: true,
     },
-    reactions:[Reaction],
+    reactions:[reactionSchema],
   },
   {
     toJSON: {
@@ -35,6 +64,9 @@ thoughtSchema
   .get(function () {
     return this.reactions.length;
   });
+
+
+
 
 // Initialize our Thought model
 const Thought = model('thought', thoughtSchema);
