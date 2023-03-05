@@ -26,7 +26,4 @@ router.route('/:userId/friends/:friendId')
   .delete(removeFriend);
 
 
-// TODOS:
-// BONUS: Remove a user's associated thoughts when deleted.
-
 module.exports = router;
