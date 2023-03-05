@@ -4,6 +4,7 @@ const { getRandomThoughts, usernames} = require('./data');
 
 connection.on('error', (err) => err);
 
+// deletes seeds if exists and reseed usernames and thoughts
 connection.once('open', async () => {
   console.log('connected');
   await Thought.deleteMany({});
@@ -15,24 +16,19 @@ connection.once('open', async () => {
 
   for (let i = 0; i < usernames.length-1; i++) {
     const username = usernames[i];
-    const email = `${username}@gmail.com`
+    const email = `${username}@email.com`
 
-   
     users.push({
       username,
       email,
     })
   }
 
-  
-
+  // inserts random users and thoughts to database
   await User.collection.insertMany(users);
   await Thought.collection.insertMany(thoughts);
 
-  // loop through the saved thought, for each thought we need to generate a thought reaction and insert the thought reaction
-
-
-
+  // logs to console seeded users and thoughts
   console.table(users);
   console.table(thoughts);
   console.info('Seeding complete! 🌱');

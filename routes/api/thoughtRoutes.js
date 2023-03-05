@@ -1,4 +1,6 @@
 const router = require('express').Router();
+
+// holds functions for thought routes
 const {
   getThoughts,
   getSingleThought,

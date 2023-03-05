@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require('mongoose');
-// const reactionSchema = require('./Reaction');
-// const Reaction = require('./Reaction');
+const moment = require('moment');
 
+// creates model for Reactions to a thought
 const reactionSchema = new Schema(
   {
     reactionId: {
@@ -20,17 +20,19 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: date => moment(date).format('LLL'), // getter and formatter for dates
     },
   },
   {
     toJSON: {
       getters: true,
+      virtuals: true
     },
     id: false,
   }
 );
 
-// Schema to create Post model
+// Schema to create thought model
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -42,6 +44,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: date => moment(date).format('LLL'),  // getter and formats date
     },
     username: {
       type: String,
@@ -51,6 +54,7 @@ const thoughtSchema = new Schema(
   },
   {
     toJSON: {
+      getters:true,
       virtuals: true,
     },
     id: false,
@@ -64,9 +68,6 @@ thoughtSchema
   .get(function () {
     return this.reactions.length;
   });
-
-
-
 
 // Initialize our Thought model
 const Thought = model('thought', thoughtSchema);

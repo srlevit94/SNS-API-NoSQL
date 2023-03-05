@@ -13,19 +13,22 @@ const userSchema = new Schema(
         type: String,
         unique: true,
         required: true,
+        // validates for standard email formats
         validate: {
             validator: function (v) {
-                return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
+                return /^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
             },
             message: 'Email validation failed'
           }
     },
+    // holds thoughts for user
     thoughts: [
       {
         type: Schema.Types.ObjectId,
         ref: 'thought',
       }
     ],
+    // holds friends for user
     friends: [
       {
         type: Schema.Types.ObjectId,
@@ -43,7 +46,7 @@ const userSchema = new Schema(
   }
 );
 
-// Create a virtual property `fullName` that gets and sets the user's full name
+// Create a virtual property `friendcount` that gets number of friends
 userSchema
   .virtual('friendCount')
   // Getter

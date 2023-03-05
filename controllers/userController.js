@@ -1,11 +1,13 @@
 const {User, Thought} = require('../models/');
 
 module.exports = {
+  //gets all users
   getUsers(req, res) {
     User.find()
       .then((users) => res.json(users))
       .catch((err) => console.log(err) && res.status(500).json(err));
   },
+  // gets a singleuser by user ID
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select('-__v')
@@ -22,7 +24,7 @@ module.exports = {
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(500).json(err));
   },
-  //updateUser
+  //updateUser by ID
   updateUser(req,res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -36,7 +38,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  //delete a user and associated thoughts
+  //delete a user and associated thoughts by user ID
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
@@ -47,6 +49,7 @@ module.exports = {
       .then(() => res.json({ message: 'User and associated thoughts deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
+  //adds a a friend to a user's friends array
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -60,6 +63,7 @@ module.exports = {
     )
     .catch((err) => res.status(500).json(err));
   },
+  // removes a friend from a user's friend array
   removeFriend (req,res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },

@@ -1,18 +1,38 @@
 # SNS-API-NoSQL
 
-## User Story
-- AS A social media startup
-- I WANT an API for my social network that uses a NoSQL database
-- SO THAT my website can handle large amounts of unstructured data
+## Description:
+This application serves as an API for a social netwrok, and uses a noSQL database. It collects Users, their usernames, thoughts, and friends. Additionally, their thoughts can hold reactions from other users. 
+
+## Installation:
+- clone this repository and navigate to it in your command line
+- `npm install` the required dependencies
+- `npm seed` to seed some sample data
+- `npm start` to run application to server
+
+## Usage:
+- look for a database called `sns_api` in MongoDB to see documents for Users and Thoughts
+- User Routes:  
+    - GET all users:  `GET http://localhost:3001/api/users`
+    - GET a single user: `GET http://localhost:3001/api/users/:userId`
+    - CREATE a user: `POST http://localhost:3001/api/users`
+    - UPDATE a user: `PUT http://localhost:3001/api/users/:userId`
+    - DELETE a user: `DEL http://localhost:3001/api/users/:userId`
+-Friend Routes:
+    - ADD a Friend: `POST http://localhost:3001/api/users/:userId/friends/:userId[of new friend]`
+    - REMOVE a Friend `DEL http://localhost:3001/api/users/:userId/friends/:userId[of friend]`
+- Thought Routes:  
+    - GET all thoughts: `GET http://localhost:3001/api/thoughts`
+    - GET a single thought: `GET http://localhost:3001/api/thoughts/:thoughtId`
+    - CREATE a thought: `POST http://localhost:3001/api/thoughts`
+    - UPDATE a thought: `PUT http://localhost:3001/api/thoughts/:thoughtId`
+    - DELETE a thought: `DEL http://localhost:3001/api/thoughts/:thoughtId`
+- Reaction Routes: 
+    - CREATE a Reaciton: `POST http://localhost:3001/api/thoughts/:thoughtId/reactions`
+    - DELETE a Reaction: `DEL http://localhost:3001/api/thoughts/:thoughtId/reactions/_id`
 
 
-## Acceptance Criteria
-- GIVEN a social network API
-- WHEN I enter the command to invoke the application
-- THEN my server is started and the Mongoose models are synced to the MongoDB database
-- WHEN I open API GET routes in Insomnia for users and thoughts
-- THEN the data for each of these routes is displayed in a formatted JSON
-- WHEN I test API POST, PUT, and DELETE routes in Insomnia
-- THEN I am able to successfully create, update, and delete users and thoughts in my database
-- WHEN I test API POST and DELETE routes in Insomnia
-- THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
+
+
+## Links
+Walkthrough Video: https://watch.screencastify.com/v/vvD7TdzGiFTdwMA8YnDK
+GitHub Repo: https://github.com/srlevit94/SNS-API-NoSQL
